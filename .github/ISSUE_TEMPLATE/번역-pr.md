@@ -7,7 +7,7 @@ assignees: elecbug, krsy0411
 
 ---
 
-## 번역 요청
+## 번역 PR
 
 ### 기여 내용
 
