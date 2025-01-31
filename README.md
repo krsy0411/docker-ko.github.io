@@ -2,6 +2,20 @@
 
 > [Link](https://docker-ko.github.io/)
 
+## 목차
+
+- [Docker 한국어 번역 프로젝트](#docker-한국어-번역-프로젝트)
+  - [목차](#목차)
+  - [프로젝트 목표](#프로젝트-목표)
+  - [번역 범위](#번역-범위)
+  - [참여 방법](#참여-방법)
+  - [스타일 가이드](#스타일-가이드)
+  - [배포](#배포)
+  - [기여자들](#기여자들)
+  - [라이선스](#라이선스)
+  - [문의](#문의)
+
+
 이 프로젝트는 Docker 공식 문서의 한국어 번역을 목표로 합니다. 개발자와 DevOps 엔지니어를 비롯한 많은 사람들이 Docker를 더 쉽게 배우고 활용할 수 있도록 돕기 위해 시작되었습니다. 오픈소스 프로젝트로 진행되며 누구나 기여할 수 있습니다.
 
 ## 프로젝트 목표
@@ -20,7 +34,7 @@
 4. Compose 및 Swarm
 5. Advanced Topics
 
-전체 번역 범위는 [issues](https://github.com/docker-ko/docker-ko.github.io/issues)를 통해 확인하실 수 있습니다.
+전체 번역 범위는 [Issue](https://github.com/docker-ko/docker-ko.github.io/issues)를 통해 확인하실 수 있습니다.
 
 ## 참여 방법
 
@@ -36,20 +50,19 @@
 4. 문서를 번역한 뒤 커밋하고 푸시합니다.
     ```bash
     git add .
-    git commit -m "번역: Getting Started 섹션"
+    git commit -m "trans: Getting Started 섹션"
     git push origin [USERNAME]-[translate|ui]
     ```
 5. 원본 저장소로 Pull Request를 생성합니다.
-
-더 자세한 사항은 [기여 가이드라인(CONTRIBUTING.md)](./CONTRIBUTING.md)를 참고하세요.
 
 ## 스타일 가이드
 
 번역의 일관성을 유지하기 위해 아래의 가이드를 참고하세요:
 
-- **용어집**: 도커 관련 기술 용어는 [용어집](./TERMINOLOGY.md)을 참고하여 번역합니다.
 - **어조**: 경어체를 사용하며, 기술적 문맥에서는 간결한 표현을 지향합니다.
 - **형식**: Markdown 문법을 따르며, 코드 블록은 번역하지 않습니다.
+
+자세한 사항은 [스타일 가이드](./SYTLE_GUIDE.md)를 참고하세요.
 
 ## 배포
 
