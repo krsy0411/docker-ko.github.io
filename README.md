@@ -1,6 +1,8 @@
 # Docker 한국어 번역 프로젝트
 
-> [Link](https://docker-ko.github.io/)
+> [도커 공식 문서](https://docs.docker.com/)를 참고해주세요.
+
+이 프로젝트는 Docker 공식 문서의 한국어 번역을 목표로 합니다. 개발자와 DevOps 엔지니어를 비롯한 많은 사람들이 Docker를 더 쉽게 배우고 활용할 수 있도록 돕기 위해 시작되었습니다. 오픈소스 프로젝트로 진행되며 누구나 기여할 수 있습니다.
 
 ## 목차
 
@@ -15,45 +17,46 @@
   - [라이선스](#라이선스)
   - [문의](#문의)
 
-
-이 프로젝트는 Docker 공식 문서의 한국어 번역을 목표로 합니다. 개발자와 DevOps 엔지니어를 비롯한 많은 사람들이 Docker를 더 쉽게 배우고 활용할 수 있도록 돕기 위해 시작되었습니다. 오픈소스 프로젝트로 진행되며 누구나 기여할 수 있습니다.
-
 ## 프로젝트 목표
 
 - Docker 공식 문서의 주요 섹션을 한국어로 번역
 - 번역의 품질과 일관성 유지
-- 한국어 사용자 커뮤니티의 성장 지원
+- 한국어 사용자 커뮤니티의 성장
 
 ## 번역 범위
 
 다음과 같은 주요 섹션을 우선적으로 번역합니다:
 
-1. Getting Started
+1. Get Started
 2. Installation Guides
 3. Docker CLI 사용법
 4. Compose 및 Swarm
 5. Advanced Topics
 
-전체 번역 범위는 [Issue](https://github.com/docker-ko/docker-ko.github.io/issues)를 통해 확인하실 수 있습니다.
+전체 번역 범위는 [도커 공식 문서](https://docs.docker.com/)를 통해 확인하실 수 있습니다.
 
 ## 참여 방법
 
 1. 이 저장소를 포크(Fork)합니다.
 2. 포크한 저장소를 클론(Clone)합니다.
-    ```bash
-    git clone https://github.com/[YOUR_USERNAME]/docker-ko.github.io
-    ```
+   ```bash
+   git clone https://github.com/[YOUR_USERNAME]/docker-ko.github.io
+   ```
 3. 새로운 브랜치를 생성합니다.
-    ```bash
-    git checkout -b [USERNAME]-[translate|ui]
-    ```
+   ```bash
+   git checkout -b [USERNAME]-[translate | ui]
+   ```
 4. 문서를 번역한 뒤 커밋하고 푸시합니다.
-    ```bash
-    git add .
-    git commit -m "trans: Getting Started 섹션"
-    git push origin [USERNAME]-[translate|ui]
-    ```
+   ```bash
+   git add .
+   # 선택1) 번역
+   git commit -m "translate : Get Started"
+   # 선택2) UI
+   git commit -m "ui : What is an image"
+   git push origin [USERNAME]-[translate | ui]
+   ```
 5. 원본 저장소로 Pull Request를 생성합니다.
+   - `origin/master` <- `[USERNAME]/[translate | ui]`
 
 ## 스타일 가이드
 
