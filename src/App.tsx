@@ -1,13 +1,18 @@
-import './App.css';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import AppRoutes from './routes';
 
 function App() {
   return (
-    <>
-      <div>
-        <h1>Docker 한국어 문서</h1>
-        <p>이 문서는 Docker 공식 문서를 번역한 것입니다.</p>
+    <div className="flex flex-col h-screen w-screen">
+      <Header />
+      <div className="flex flex-1">
+        <Sidebar />
+        <main className="flex-1 p-4 overflow-auto">
+          <AppRoutes />
+        </main>
       </div>
-    </>
+    </div>
   );
 }
 
