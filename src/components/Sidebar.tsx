@@ -6,22 +6,22 @@ const Sidebar = () => {
             <nav>
                 <ul>
                     <li className="mb-2">
-                        <Link to="/basics/registry" className="text-blue-600 hover:underline">
+                        <Link to="/get-started/docker-concepts/the-basics/what-is-a-registry" className="text-blue-600 hover:underline">
                             What is a Registry?
                         </Link>
                     </li>
                     <li className="mb-2">
-                        <Link to="/basics/container" className="text-blue-600 hover:underline">
+                        <Link to="/get-started/docker-concepts/the-basics/what-is-a-container" className="text-blue-600 hover:underline">
                             What is a Container?
                         </Link>
                     </li>
                     <li className="mb-2">
-                        <Link to="/basics/compose" className="text-blue-600 hover:underline">
+                        <Link to="/get-started/docker-concepts/the-basics/what-is-docker-compose" className="text-blue-600 hover:underline">
                             What is Docker Compose?
                         </Link>
                     </li>
                     <li className="mb-2">
-                        <Link to="/basics/image" className="text-blue-600 hover:underline">
+                        <Link to="/get-started/docker-concepts/the-basics/what-is-an-image" className="text-blue-600 hover:underline">
                             What is an Image?
                         </Link>
                     </li>

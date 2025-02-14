@@ -6,25 +6,25 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<MarkdownPage filePath="/README.md" />} />
     <Route
-      path="/basics/registry"
+      path="/get-started/docker-concepts/the-basics/what-is-a-registry"
       element={
         <MarkdownPage filePath="/docs/get-started/docker-concepts/the-basics/what-is-a-registry.md" />
       }
     />
     <Route
-      path="/basics/container"
+      path="/get-started/docker-concepts/the-basics/what-is-a-container"
       element={
-        <MarkdownPage filePath="/docs/translate/get-started/docker-concepts/the-basics/what-is-a-container.md" />
+        <MarkdownPage filePath="/docs/get-started/docker-concepts/the-basics/what-is-a-container.md" />
       }
     />
     <Route
-      path="/basics/compose"
+      path="/get-started/docker-concepts/the-basics/what-is-docker-compose"
       element={
         <MarkdownPage filePath="/docs/get-started/docker-concepts/the-basics/what-is-docker-compose.md" />
       }
     />
     <Route
-      path="/basics/image"
+      path="/get-started/docker-concepts/the-basics/what-is-an-image"
       element={
         <MarkdownPage filePath="/docs/get-started/docker-concepts/the-basics/what-is-an-image.md" />
       }
