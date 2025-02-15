@@ -53,7 +53,7 @@
    git commit -m "translate : Get Started"
    # 선택2) UI
    git commit -m "ui : What is an image"
-   git push origin [USERNAME]-[translate | ui]
+   git push origin [USERNAME]/[translate | ui]
    ```
 5. 원본 저장소로 Pull Request를 생성합니다.
    - `origin/master` <- `[USERNAME]/[translate | ui]`
