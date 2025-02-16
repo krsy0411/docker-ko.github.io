@@ -28,7 +28,7 @@ function loadMarkdown() {
 // 사이드 네비게이션 로드
 function loadSideNav() {
     let section = location.hash ? location.hash.split("/")[0].substring(1) : "get-started";
-    fetch("docs/side_nav.json")
+    fetch("assets/side_nav.json")
         .then(response => response.json())
         .then(data => {
             let sidebar = document.getElementById("side-nav");
