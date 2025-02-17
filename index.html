@@ -1,49 +1,302 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docker Korea</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<!-- 👇👇 여기에 주석 풀고 깃헙에 쓰고 있는 organization 사진 아이콘으로 변경해서 넣어주세요 👇👇-->
+		<!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Docker Korea</title>
+		<!-- <style>
+			/* 임시 스타일 추가 */
+			header {
+				background: linear-gradient(to right, #1e3a8a, #3b82f6) !important;
+			}
+		</style> -->
+		<script
+			src="https://kit.fontawesome.com/6984a5c98e.js"
+			crossorigin="anonymous"
+		></script>
+	</head>
+	<body
+		class="h-full flex-col bg-background-light text-base dark:bg-background-dark dark:text-white"
+	>
+		<!-- 네비게이션 바 -->
+		<header class="w-full sticky top-0 z-20 h-16 px-6 text-white bg-[#086dd7]">
+			<div
+				class="max-w-[1920px] mx-auto flex lg:gap-8 gap-2 h-full items-center justify-between"
+			>
+				<div class="flex h-full items-center lg:gap-8 gap-2">
+					<div>
+						<a>
+							<img
+								src="/docker-logo-white.svg"
+								alt="Docker Korea home page"
+								width="160"
+								height="24"
+							/>
+						</a>
+					</div>
+					<nav class="mt-1">
+						<ul class="flex text-sm md:text-base lg:gap-4">
+							<li
+								class="border-b-4 border-transparent hover:border-white/20 cursor-pointer"
+							>
+								<a class="block px-2 py-1 whitespace-nowrap" herf="/get-started"
+									>Get started</a
+								>
+							</li>
+							<li
+								class="border-b-4 border-transparent hover:border-white/20 cursor-pointer"
+							>
+								<a class="block px-2 py-1 whitespace-nowrap" herf="/guides"
+									>Guides</a
+								>
+							</li>
+							<li
+								class="border-b-4 border-transparent hover:border-white/20 cursor-pointer"
+							>
+								<a class="block px-2 py-1 whitespace-nowrap" herf="/manuals"
+									>Manuals</a
+								>
+							</li>
+							<li
+								class="border-b-4 border-transparent hover:border-white/20 cursor-pointer"
+							>
+								<a class="block px-2 py-1 whitespace-nowrap" herf="/reference"
+									>Reference</a
+								>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
 
-    <!-- 네비게이션 바 -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">Docker Korea</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#get-started">시작하기</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#guide">가이드</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#manual">메뉴얼</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#reference">참고</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+		<main class="flex w-full h-full">
+			<!-- nav: 목차 나타내는 왼쪽 부분 사이드 -->
+			<nav
+				id="sidebar"
+				style="scroll-behavior: smooth"
+				class="md:h-[calc(100vh-64px)] fixed md:sticky top-0 md:top-16 z-40 hidden h-screen flex-none overflow-y-auto overflow-x-hidden bg-[#f9f9fa] dark:bg-gray-dark-100 w-full md:z-auto md:block md:w-[300px]"
+			>
+				<div
+					class="z-50 w-full p-4 dark:bg-gray-dark-100 md:block md:w-[300px]"
+				>
+					<div id="nav__get-started" class="py-2 px-4 text-black">
+						<div class="flex w-full items-center justify-between">
+							<a
+								class="hover:text-blue-light dark:hover:text-blue-dark text-black flex items-center"
+								href="/get-started"
+							>
+								<span class="p-0 m-0 pr-2">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 512 512"
+										width="16"
+										height="16"
+									>
+										<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+										<path
+											d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 242.7-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7 288 32zM64 352c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-101.5 0-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352 64 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+										/>
+									</svg> </span
+								>Get started
+							</a>
+							<button>
+								<span>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 512 512"
+										width="16"
+										height="16"
+									>
+										<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+										<path
+											d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+										/>
+									</svg>
+								</span>
+								<span class="hidden">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+										<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+										<path
+											d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+										/>
+									</svg>
+								</span>
+							</button>
+						</div>
+					</div>
+					<hr class="m-2 text-gray-light-200 dark:text-gray-dark-300" />
+					<div id="nav__content" class="md:text-sm flex flex-col text-black">
+						<ul>
+							<li
+								class="rounded px-4 hover:text-blue-light hover:dark:text-blue-dark"
+							>
+								<a
+									class="py-2 w-full truncate block"
+									href="/get-started/get-docker"
+									>Get Docker</a
+								>
+							</li>
+							<li
+								class="rounded px-4 hover:text-blue-light hover:dark:text-blue-dark"
+							>
+								<a
+									class="py-2 w-full truncate block"
+									href="get-started/docker-overview"
+									>What is Docker?</a
+								>
+							</li>
+							<li>
+								<div
+									class="rounded px-4 w-full flex items-center justify-between"
+								>
+									<div class="w-full py-2 truncate">
+										<a
+											class="block select-none hover:text-blue-light hover:dark:text-blue-dark"
+											href="/get-started/introduction"
+											>Introduction</a
+										>
+									</div>
+									<button>
+										<span>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512"
+												width="16"
+												height="16"
+											>
+												<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+												<path
+													d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+												/>
+											</svg>
+										</span>
+										<span class="hidden">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512"
+											>
+												<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+												<path
+													d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+												/>
+											</svg>
+										</span>
+									</button>
+								</div>
+							</li>
+							<li>
+								<div
+									class="rounded px-4 w-full flex items-center justify-between"
+								>
+									<div class="w-full py-2 truncate">
+										<button
+											class="w-full text-left select-none hover:text-blue-light hover:dark:text-blue-dark"
+										>
+											Docker concepts
+										</button>
+									</div>
+									<button
+										class="hover:bg-gray-light-300 hover:dark:bg-gray-dark-300 rounded"
+									>
+										<span>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512"
+												width="16"
+												height="16"
+											>
+												<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+												<path
+													d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+												/>
+											</svg>
+										</span>
+										<span class="hidden">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512"
+											>
+												<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+												<path
+													d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+												/>
+											</svg>
+										</span>
+									</button>
+								</div>
+							</li>
+							<li>
+								<div
+									class="rounded px-4 w-full flex items-center justify-between"
+								>
+									<div class="w-full py-2 truncate">
+										<a
+											class="block select-none hover:text-blue-light hover:dark:text-blue-dark"
+											href="/get-started/docker-workshop"
+											>Docker workshop</a
+										>
+									</div>
+									<button>
+										<span>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512"
+												width="16"
+												height="16"
+											>
+												<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+												<path
+													d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
+												/>
+											</svg>
+										</span>
+										<span class="hidden">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512"
+											>
+												<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+												<path
+													d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"
+												/>
+											</svg>
+										</span>
+									</button>
+								</div>
+							</li>
+							<li
+								class="rounded px-4 hover:text-blue-light hover:dark:text-blue-dark"
+							>
+								<a
+									class="py-2 w-full truncate block"
+									href="/get-started/resources"
+									>Educational resources</a
+								>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
 
-    <!-- 컨텐츠 & 사이드바 -->
-    <div class="container-fluid d-flex">
-        <div id="sidebar" class="sidebar">
-            <h4>로딩 중...</h4>
-            <ul id="side-nav"></ul>
-        </div>
-        <div id="content" class="content markdown-body">
-            로딩 중...
-        </div>
-    </div>
+			<!-- app: content(마크다운 파일) 표시 공간 : 오른쪽 부분 -->
+			<div id="app"></div>
+		</main>
 
-    <!-- 푸터 -->
-    <footer class="footer">
-        <p>© 2025 Docker 한국어 문서 프로젝트 | <a href="https://github.com/docker-ko/docker-ko.github.io" style="color: #b0c4de;">GitHub</a></p>
-    </footer>
+		<!-- 푸터 -->
+		<footer
+			class="w-screen text-center py-4 bg-[#086dd7] text-white absolute bottom-0"
+		>
+			© 2025 Docker 한국어 문서 프로젝트 |
+			<a
+				href="https://github.com/docker-ko/docker-ko.github.io"
+				class="hover:underline text-[#b0c4de]"
+				>GitHub</a
+			>
+		</footer>
 
-    <script src="assets/script.js"></script>
-</body>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
 </html>
