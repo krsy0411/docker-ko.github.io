@@ -1,22 +1,23 @@
 import { marked } from "marked";
 
+// Vite의 `import.meta.glob()`을 사용하여 `docs/` 폴더 내 모든 `.md` 파일을 가져옴.
+const markdownFiles = import.meta.glob("/docs/**/*.md", { as: "raw" });
+
 async function loadMarkdown(page: string) {
     try {
-        console.log(`Fetching Markdown: /docs/${page}.md`); // 디버깅 로그 추가
+        console.log(`📥 Loading Markdown: ${page}`);
 
-        const response = await fetch(`/docs/${page}.md?cache=${Date.now()}`);
-        if (!response.ok) throw new Error(`페이지를 찾을 수 없습니다: ${page}`);
+        // `docs/${page}.md` 형식의 파일을 찾음
+        const filePath = `/docs/${page}.md`;
+        if (!markdownFiles[filePath]) throw new Error(`❌ 페이지를 찾을 수 없습니다: ${page}`);
 
-        const mdText = await response.text();
-        if (mdText.trim().startsWith("<!DOCTYPE html>") || mdText.includes("<html")) throw new Error(`요청된 경로가 Markdown이 아닌 HTML을 반환합니다: ${page}`);
+        const mdText = await markdownFiles[filePath](); // 비동기적으로 가져오기
         if (!mdText.trim()) throw new Error(`Markdown 파일이 비어 있습니다: ${page}`);
 
-        const htmlContent = marked.parse(mdText);
-
-        const contentElement = document.getElementById("content")!;
-        contentElement.innerHTML = await htmlContent;  // HTML 삽입
+        const htmlContent = await marked.parse(mdText);
+        document.getElementById("content")!.innerHTML = htmlContent;
         
-        console.log(`Markdown 로드 완료! ${mdText}`);
+        console.log("✅ Markdown 로드 완료!");
     } catch (error) {
         console.error(error);
         document.getElementById("content")!.innerHTML = `
@@ -29,27 +30,14 @@ async function loadMarkdown(page: string) {
     }
 }
 
-
 export function initializeMarkdownLoader() {
     function updateMarkdown() {
-        let page: string;
-
-        if (location.hash) {
-            page = location.hash.substring(1); // 해시(#)를 제거한 경로
-        } else {
-            // 해시가 없는 경우 location.pathname 사용
-            page = location.pathname.startsWith("/") ? location.pathname.substring(1) : location.pathname;
-        }
-
-        console.log(`현재 location.pathname: ${location.pathname}`);
-        console.log(`현재 location.hash: ${location.hash}`);
-        console.log(`페이지 변경 감지: ${page}`);
-
+        let page = location.hash ? location.hash.substring(1) : "home"; // 기본 페이지
+        console.log(`🔄 페이지 변경 감지: ${page}`);
         loadMarkdown(page);
     }
 
     window.addEventListener("hashchange", updateMarkdown);
-    window.addEventListener("popstate", updateMarkdown); // 브라우저 뒤로 가기/앞으로 가기 감지
+    window.addEventListener("popstate", updateMarkdown);
     updateMarkdown(); // 초기 실행
 }
-
