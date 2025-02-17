@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
-        var redirectUrl = window.location.origin + "/docker-ko.github.io/";
-        window.location.replace(redirectUrl);
+        (function() {
+            // 현재 URL의 경로 가져오기 (해시 기반 라우팅으로 변환)
+            var path = window.location.pathname + window.location.search;
+            var newUrl = window.location.origin + "elecbug.github.io/docker-ko.github.io/#" + path;
+
+            // 올바른 URL로 리디렉트
+            window.location.replace(newUrl);
+        })();
     </script>
 </head>
 <body>
