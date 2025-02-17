@@ -1,0 +1,36 @@
+name: Deploy Vite to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 체크아웃 저장소
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: 의존성 설치
+        run: npm install
+
+      - name: Vite 프로젝트 빌드
+        run: npm run build
+
+      - name: GitHub Pages에 배포
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # 👉 토큰 추가
+          branch: gh-pages
+          folder: dist  # Vite 빌드 폴더 (기본값: dist)
