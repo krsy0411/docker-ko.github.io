@@ -57,20 +57,21 @@
     padding-left: 1rem;
 }
 
-#content code {
-    font-family: monospace;
-    background-color: #f4f4f4;
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    color: #d63384;
+#content pre {
+    background-color: #282c34;
+    color: #f8f8f2;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: "Fira Code", "Courier New", monospace;
 }
 
-#content pre {
-    background: #1e1e1e;
-    color: white;
-    padding: 1rem;
-    border-radius: 5px;
-    overflow-x: auto;
+#content code {
+    display: block;
+    color: #f8f8f2;
+    background: none;
 }
 
 #content blockquote {
