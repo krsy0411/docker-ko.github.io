@@ -70,8 +70,8 @@
 
 #content code {
     display: block;
+    background-color: #282c34;
     color: #f8f8f2;
-    background: none;
 }
 
 #content blockquote {
