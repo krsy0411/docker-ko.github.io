@@ -21,6 +21,7 @@ window.addEventListener('hashchange', async () => {
   try {
     await initializeMarkdownLoader();
     initializeTableContents();
+    window.scrollTo(0, 0); // 페이지 이동 시 최상단으로 스크롤 이동
   } catch (error) {
     console.error('❌ main.ts: hashchange : Markdown 로드 실패!', error);
     // 실제 다른 작업이 필요
