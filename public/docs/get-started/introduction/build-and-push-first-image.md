@@ -1,6 +1,14 @@
 # Build and push your first image
 
-[![Get docker desptop](https://img.youtube.com/vi/7ge1s5nAa34/0.jpg)](https://www.youtube.com/watch?v=7ge1s5nAa34)
+<div class="youtube-video">
+   <iframe 
+    src="https://www.youtube.com/embed/7ge1s5nAa34" 
+    frameborder="0" 
+    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen
+   >
+  </iframe>
+</div>
 
 ## Explanation
 
