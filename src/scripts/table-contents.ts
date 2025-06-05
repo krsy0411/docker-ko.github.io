@@ -23,11 +23,12 @@ export const initializeTableContents = () => {
   const toc = document.getElementById('toc') as HTMLElement;
 
   toc.innerHTML = '';
-  if (!content.querySelector('h1')) return;
+
+  const headings = content.querySelectorAll('h2, h3');
+  if (headings.length === 0) return;
 
   const tocTitle = document.createElement('p');
   const tocList = document.createElement('ul');
-  const headings = content.querySelectorAll('h2, h3');
 
   tocTitle.classList.add('text-black', 'font-light', 'text-2xl', 'pb-5');
   tocTitle.textContent = 'Table of contents';
@@ -46,7 +47,24 @@ export const initializeTableContents = () => {
     );
     const link = document.createElement('a');
     link.classList.add('flex', 'justify-start', 'items-stretch', 'p-1');
-    link.textContent = heading.textContent || '';
+
+    const headingText = heading.textContent || '';
+    link.textContent =
+      headingText.length > 30
+        ? headingText.substring(0, 30) + '...'
+        : headingText;
+
+    // 클릭 시 해당 heading으로 스크롤 이동
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const headingRect = heading.getBoundingClientRect();
+      const offsetTop = window.scrollY + headingRect.top - 60; // 60px 위로 조정
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+    });
 
     listItem.appendChild(link);
     tocList.appendChild(listItem);
