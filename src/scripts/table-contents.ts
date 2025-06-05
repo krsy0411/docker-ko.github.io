@@ -30,7 +30,7 @@ export const initializeTableContents = () => {
   const tocTitle = document.createElement('p');
   const tocList = document.createElement('ul');
 
-  tocTitle.classList.add('text-black', 'font-light', 'text-2xl', 'pb-5');
+  tocTitle.classList.add('text-black', 'font-light', 'text-lg', 'pb-5');
   tocTitle.textContent = 'Table of contents';
 
   const headingMap: Record<string, HTMLLIElement> = {};
@@ -41,7 +41,7 @@ export const initializeTableContents = () => {
       'max-w-64',
       'font-extralight',
       'hover:bg-gray-300',
-      'hover:font-light',
+      'hover:font-semibold',
       'cursor-pointer',
       'truncate'
     );
