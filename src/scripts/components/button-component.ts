@@ -21,7 +21,7 @@ class ButtonComponent extends HTMLElement {
 
     this.innerHTML = `
             <button type="button" class="not-prose my-4">
-                <a href="${href}" class="cursor-pointer py-2 px-4 rounded bg-[#086dd7] text-white!">
+                <a href="${href}" class="cursor-pointer py-2 px-4 rounded bg-[#086dd7] hover:bg-[#2560ff] text-white!">
                     ${title}
                 </a>
             </button>
