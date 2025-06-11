@@ -6,8 +6,8 @@ marked.setOptions({
   breaks: true,
 });
 
-// ✅ box-component를 블록 태그로 처리하는 커스텀 토크나이저 추가
-const blockTagNames = ['box-component'];
+//card-component를 블록 태그로 처리하는 커스텀 토크나이저 추가
+const blockTagNames = ['card-component'];
 const blockTagRegex = new RegExp(
   `^<(${blockTagNames.join('|')})([\\s\\S]*?)>([\\s\\S]*?)<\\/\\1>`,
   'i'
