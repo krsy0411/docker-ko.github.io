@@ -1,13 +1,13 @@
 import { marked } from 'marked';
 
-// ✅ marked 옵션 설정 (브레이크, GFM 지원 등)
+// marked 옵션 설정 (브레이크, GFM 지원 등)
 marked.setOptions({
   gfm: true,
   breaks: true,
 });
 
-// ✅ box-component를 블록 태그로 처리하는 커스텀 토크나이저 추가
-const blockTagNames = ['box-component'];
+//card-component를 블록 태그로 처리하는 커스텀 토크나이저 추가
+const blockTagNames = ['card-component'];
 const blockTagRegex = new RegExp(
   `^<(${blockTagNames.join('|')})([\\s\\S]*?)>([\\s\\S]*?)<\\/\\1>`,
   'i'
@@ -43,11 +43,11 @@ export async function renderMarkdownWithComponents(
   contentElement: HTMLElement
 ) {
   const tokens = mdText
-    .split(/(<\/?box-component[^>]*>|<\/?button-component[^>]*>)/gi)
+    .split(/(<\/?card-component[^>]*>|<\/?button-component[^>]*>)/gi)
     .filter(Boolean);
 
   for (const token of tokens) {
-    if (/^<\/?(box-component|button-component)[^>]*>$/.test(token)) {
+    if (/^<\/?(card-component|button-component)[^>]*>$/.test(token)) {
       contentElement.innerHTML += token;
     } else if (token.trim()) {
       const html = await marked.parse(token);
