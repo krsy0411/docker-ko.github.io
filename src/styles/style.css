@@ -30,8 +30,6 @@
     @apply min-w-0 bg-white rounded-md border border-gray-200 px-4 py-3 mb-4 transition duration-200 hover:border-gray-300 hover:shadow h-full flex flex-col;
   }
   
-  
-
   .card-link {
     @apply flex items-start gap-4 no-underline;
   }
@@ -55,4 +53,23 @@
   .card-title {
     @apply text-base font-semibold text-gray-700;
   }
+}
+
+/* 전역 스타일 */
+body {
+  font-family: 'Noto Sans KR', Arial, sans-serif;
+  background: #f8fafc;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin: 0 0 1em 0;
 }
