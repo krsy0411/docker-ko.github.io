@@ -6,8 +6,8 @@ marked.setOptions({
   breaks: true,
 });
 
-//card-component를 블록 태그로 처리하는 커스텀 토크나이저 추가
-const blockTagNames = ['card-component'];
+// ✅ box-component를 블록 태그로 처리하는 커스텀 토크나이저 추가
+const blockTagNames = ['box-component'];
 const blockTagRegex = new RegExp(
   `^<(${blockTagNames.join('|')})([\\s\\S]*?)>([\\s\\S]*?)<\\/\\1>`,
   'i'
@@ -38,7 +38,7 @@ marked.use({ extensions: [customBlockTokenizer] });
  * mdText를 웹 컴포넌트 태그(<box-component>, <button-component>) 기준으로 분할하여
  * 마크다운은 파싱하고, 웹 컴포넌트는 그대로 삽입하는 함수
  */
-async function renderMarkdownWithComponents(
+export async function renderMarkdownWithComponents(
   mdText: string,
   contentElement: HTMLElement
 ) {
