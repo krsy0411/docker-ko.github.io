@@ -8,7 +8,8 @@ marked.setOptions({
 
 // card-component를 블록 태그 및 셀프 클로징 태그로 처리하는 커스텀 토크나이저 추가
 // 템플릿 리터럴에서 역참조(\1) 사용 불가하므로 정규식 리터럴로 하드코딩
-const blockTagRegex = /^<(card-component)([\s\S]*?)(?:>([\s\S]*?)<\/card-component>|\s*\/)>/i;
+const blockTagRegex =
+  /^<(card-component)([\s\S]*?)(?:>([\s\S]*?)<\/card-component>|\s*\/)>/i;
 
 const customBlockTokenizer = {
   name: 'custom-block-tag',
@@ -50,11 +51,17 @@ export async function renderMarkdownWithComponents(
     } else if (token.trim()) {
       // 나머지는 기존 방식대로 웹 컴포넌트 분리 후 마크다운 파싱
       const innerTokens = token
-        .split(/(<card-component[\s\S]*?<\/card-component>|<card-component[\s\S]*?\/>|<button-component[\s\S]*?<\/button-component>|<button-component[\s\S]*?\/>)/gi)
+        .split(
+          /(<card-component[\s\S]*?<\/card-component>|<card-component[\s\S]*?\/>|<button-component[\s\S]*?<\/button-component>|<button-component[\s\S]*?\/>)/gi
+        )
         .filter(Boolean);
       for (const innerToken of innerTokens) {
-        if (/^<\/?(card-component|button-component)[^>]*?>.*?<\/(card-component|button-component)>$/.test(innerToken) ||
-            /^<(card-component|button-component)[^>]*?\/>$/.test(innerToken)) {
+        if (
+          /^<\/?(card-component|button-component)[^>]*?>.*?<\/(card-component|button-component)>$/.test(
+            innerToken
+          ) ||
+          /^<(card-component|button-component)[^>]*?\/>$/.test(innerToken)
+        ) {
           contentElement.innerHTML += innerToken;
         } else if (innerToken.trim()) {
           const html = await marked.parse(innerToken);

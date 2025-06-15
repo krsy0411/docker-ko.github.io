@@ -24,11 +24,13 @@ class CardComponent extends HTMLElement {
     this.innerHTML = `
       <div class="card">
         <a href="${href}" class="card-link">
-          ${imgSrc
-            ? `<div class="card-icon">
+          ${
+            imgSrc
+              ? `<div class="card-icon">
                 <img class="card-img" src="${imgSrc}" alt="${title}" />
               </div>`
-            : ''}
+              : ''
+          }
           <div class="card-content">
             <p class="card-description">
               <strong class="card-title">${title}</strong><br />
