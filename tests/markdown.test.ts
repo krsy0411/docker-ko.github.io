@@ -140,7 +140,8 @@ describe('renderMarkdownWithComponents', () => {
       const innerHTML = cardComponent?.innerHTML || '';
       expect(innerHTML).toContain(title);
       expect(innerHTML).toContain(description);
-      expect(cardComponent?.classList.contains('card')).toBe(true);
+      // card-component 자체가 아닌 내부에 .card 클래스를 가진 요소가 있는지 확인
+      expect(cardComponent?.querySelector('.card')).toBeTruthy();
       expect(innerHTML).toContain(`href="${href}"`);
     });
 
