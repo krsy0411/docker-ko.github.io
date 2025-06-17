@@ -140,7 +140,7 @@ describe('renderMarkdownWithComponents', () => {
       const innerHTML = cardComponent?.innerHTML || '';
       expect(innerHTML).toContain(title);
       expect(innerHTML).toContain(description);
-      expect(innerHTML).toContain('card');
+      expect(cardComponent?.classList.contains('card')).toBe(true);
       expect(innerHTML).toContain(`href="${href}"`);
     });
 
