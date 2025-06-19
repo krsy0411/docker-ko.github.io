@@ -42,11 +42,20 @@ export const initializeTableContents = () => {
       'font-extralight',
       'hover:bg-gray-300',
       'hover:font-semibold',
+      'cursor-pointer'
+    );
+    const link = document.createElement('button');
+    link.classList.add(
+      'flex',
+      'justify-start',
+      'items-stretch',
+      'p-1',
       'cursor-pointer',
+      'w-full',
       'truncate'
     );
-    const link = document.createElement('a');
-    link.classList.add('flex', 'justify-start', 'items-stretch', 'p-1');
+    link.setAttribute('aria-label', heading.textContent || 'Heading Link');
+    link.setAttribute('role', 'link');
 
     const headingText = heading.textContent || '';
     link.textContent =
