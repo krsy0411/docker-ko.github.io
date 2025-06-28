@@ -11,7 +11,8 @@ import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 // Application Insights 초기화
 const appInsights = new ApplicationInsights({
   config: {
-    connectionString: "InstrumentationKey=7bea0293-01dc-409c-9471-3a65567b11ed;IngestionEndpoint=https://koreacentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://koreacentral.livediagnostics.monitor.azure.com/;ApplicationId=ddbe985c-4d7a-41e4-80a8-a3961068933b",
+    connectionString:
+      'InstrumentationKey=7bea0293-01dc-409c-9471-3a65567b11ed;IngestionEndpoint=https://koreacentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://koreacentral.livediagnostics.monitor.azure.com/;ApplicationId=ddbe985c-4d7a-41e4-80a8-a3961068933b',
     enableAutoRouteTracking: true, // SPA 라우팅 자동 추적
     enableCorsCorrelation: true,
     enableRequestHeaderTracking: true,
@@ -28,8 +29,8 @@ const appInsights = new ApplicationInsights({
     disableDataLossAnalysis: true,
     disableCorrelationHeaders: false,
     distributedTracingMode: 0, // 단일 서비스이므로 분산 추적 비활성화
-    enablePerfMgr: false
-  }
+    enablePerfMgr: false,
+  },
 });
 appInsights.loadAppInsights();
 appInsights.trackPageView(); // Manually call trackPageView to establish the current user/session/pageview
