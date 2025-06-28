@@ -12,10 +12,10 @@ appInsights.setup("InstrumentationKey=7bea0293-01dc-409c-9471-3a65567b11ed;Inges
     .setAutoCollectPerformance(true, true)
     .setAutoCollectExceptions(true)
     .setAutoCollectDependencies(true)
-    .setAutoCollectConsole(true, false)
+    // .setAutoCollectConsole(true, false)
     .setAutoCollectPreAggregatedMetrics(true)
     .setSendLiveMetrics(false)
-    .setInternalLogging(false, true)
+    // .setInternalLogging(false, true)
     .enableWebInstrumentation(false)
     .start();
 
