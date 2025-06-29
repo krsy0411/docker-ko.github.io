@@ -5,6 +5,11 @@
     frameborder="0" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
+    width="560" 
+    height="315"
+    loading="lazy"
+    title="Multi-stage builds"
+    referrerpolicy="strict-origin-when-cross-origin"
    >
   </iframe>
 </div>

@@ -2,10 +2,15 @@
 
 <div class="youtube-video">
    <iframe 
-    src="https://www.youtube.com/embed/7ge1s5nAa34" 
+    src="https://www.youtube-nocookie.com/embed/7ge1s5nAa34" 
     frameborder="0" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
+    width="560" 
+    height="315"
+    loading="lazy"
+    title="Build and push your first image"
+    referrerpolicy="strict-origin-when-cross-origin"
    >
   </iframe>
 </div>
