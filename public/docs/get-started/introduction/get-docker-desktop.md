@@ -2,7 +2,7 @@
 
 <div class="youtube-video">
    <iframe 
-    src="https://www.youtube.com/embed/C2bPVhiNU-0?rel=0&modestbranding=1&playsinline=1" 
+    src="https://www.youtube-nocookie.com/embed/C2bPVhiNU-0?rel=0&modestbranding=1&playsinline=1" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
     loading="lazy"
