@@ -2,12 +2,9 @@
 
 <div class="youtube-video">
    <iframe 
-    src="https://www.youtube.com/embed/Jx8zoIhiP4c" 
-    frameborder="0" 
+    src="https://www.youtube.com/embed/Jx8zoIhiP4c?rel=0&modestbranding=1&playsinline=1" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
-    width="560" 
-    height="315"
     loading="lazy"
     title="Writing a Dockerfile"
     referrerpolicy="strict-origin-when-cross-origin"

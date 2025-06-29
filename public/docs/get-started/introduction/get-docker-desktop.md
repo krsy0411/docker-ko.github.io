@@ -2,12 +2,9 @@
 
 <div class="youtube-video">
    <iframe 
-    src="https://www.youtube.com/embed/C2bPVhiNU-0" 
-    frameborder="0" 
+    src="https://www.youtube.com/embed/C2bPVhiNU-0?rel=0&modestbranding=1&playsinline=1" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
-    width="560" 
-    height="315"
     loading="lazy"
     title="Get Docker Desktop"
     referrerpolicy="strict-origin-when-cross-origin"

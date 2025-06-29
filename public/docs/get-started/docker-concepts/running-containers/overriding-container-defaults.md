@@ -2,12 +2,9 @@
 
 <div class="youtube-video">
    <iframe 
-    src="https://www.youtube.com/embed/PFszWK3BB8I" 
-    frameborder="0" 
+    src="https://www.youtube.com/embed/PFszWK3BB8I?rel=0&modestbranding=1&playsinline=1" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
-    width="560" 
-    height="315"
     loading="lazy"
     title="Overriding container defaults"
     referrerpolicy="strict-origin-when-cross-origin"

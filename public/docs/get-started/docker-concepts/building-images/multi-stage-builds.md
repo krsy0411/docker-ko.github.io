@@ -1,8 +1,7 @@
 # Multi-stage builds
 <div class="youtube-video">
    <iframe 
-    src="https://www.youtube.com/embed/vR185cjwxZ8" 
-    frameborder="0" 
+    src="https://www.youtube.com/embed/vR185cjwxZ8?rel=0&modestbranding=1&playsinline=1" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
     width="560" 

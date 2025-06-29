@@ -2,12 +2,9 @@
 
 <div class="youtube-video">
    <iframe 
-    src="https://www.youtube.com/embed/D0SDBrS3t9I" 
-    frameborder="0" 
+    src="https://www.youtube.com/embed/D0SDBrS3t9I?rel=0&modestbranding=1&playsinline=1" 
     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
     allowfullscreen
-    width="560" 
-    height="315"
     loading="lazy"
     title="Build and push your first image"
     referrerpolicy="strict-origin-when-cross-origin"
