@@ -75,6 +75,14 @@
 
 이 프로젝트는 커뮤니티의 기여로 이루어집니다. 기여해주신 모든 분들께 감사드립니다!
 
+<div align="center">
+
+| <img src="https://avatars.githubusercontent.com/u/90031820?v=4" width="120"/> | <img src="https://github.com/elecbug.png" width="120"/> | <img src="https://avatars.githubusercontent.com/u/105257807?v=4" width="120"/> | <img src="https://avatars.githubusercontent.com/u/79782610?v=4" width="120"/> |
+| :---------------------------------------------------------------------------: | :-----------------------------------------------------: | :----------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+|                   **[krsy0411](https://github.com/krsy0411)**                   |          **[elecbug](https://github.com/elecbug)**          |                    **[g1nya2](https://github.com/g1nya2)**                     |                 **[YoonKeumJae](https://github.com/YoonKeumJae)**                 |
+
+</div>
+
 ## 라이선스
 
 이 프로젝트는 [MIT 라이선스](./LICENSE)를 따릅니다. 기여하기 전에 반드시 라이선스를 읽어주시기 바랍니다.
