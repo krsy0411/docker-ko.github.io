@@ -33,44 +33,17 @@ const customBlockTokenizer = {
 marked.use({ extensions: [customBlockTokenizer] });
 
 /**
- * 커스텀 파서: <div ...>...</div> 블록을 마크다운 파싱 없이 그대로 삽입
- * 나머지 마크다운만 기존 파서로 처리
+ * 마크다운과 HTML을 함께 렌더링
+ * marked.js는 HTML 태그(div, card-component, button-component 등)를 자동으로 통과시킴
+ * 웹 컴포넌트는 브라우저가 인식하여 자동으로 렌더링
  */
 export async function renderMarkdownWithComponents(
   mdText: string,
   contentElement: HTMLElement
 ) {
-  // <div ...>...</div> 블록 추출 (빈 줄 포함, 중첩 X)
-  const divBlockRegex = /(<div[\s\S]*?>[\s\S]*?<\/div>)/gi;
-  const tokens = mdText.split(divBlockRegex).filter(Boolean);
-
-  for (const token of tokens) {
-    if (/^<div[\s\S]*?>[\s\S]*?<\/div>$/.test(token)) {
-      // div 블록은 그대로 삽입
-      contentElement.innerHTML += token;
-    } else if (token.trim()) {
-      // 나머지는 기존 방식대로 웹 컴포넌트 분리 후 마크다운 파싱
-      const innerTokens = token
-        .split(
-          /(<card-component[\s\S]*?<\/card-component>|<card-component[\s\S]*?\/>|<button-component[\s\S]*?<\/button-component>|<button-component[\s\S]*?\/>)/gi
-        )
-        .filter(Boolean);
-
-      for (const innerToken of innerTokens) {
-        if (
-          /^<\/?(card-component|button-component)[^>]*?>.*?<\/(card-component|button-component)>$/.test(
-            innerToken
-          ) ||
-          /^<(card-component|button-component)[^>]*?\/>$/.test(innerToken)
-        ) {
-          contentElement.innerHTML += innerToken;
-        } else if (innerToken.trim()) {
-          const html = await marked.parse(innerToken);
-          contentElement.innerHTML += html;
-        }
-      }
-    }
-  }
+  // marked.js가 마크다운 구문을 파싱하고 HTML은 그대로 통과
+  const html = await marked.parse(mdText);
+  contentElement.innerHTML = html;
 }
 
 async function loadMarkdown(page: string) {
