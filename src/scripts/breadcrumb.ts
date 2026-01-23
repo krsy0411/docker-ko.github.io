@@ -1,3 +1,5 @@
+import { getElement } from './utils/dom';
+
 /**
  *  Breadcrumb 아이템의 세그먼트 데이터 구조
  * - name: 세그먼트 이름
@@ -74,16 +76,15 @@ function getSegmentData(
 
 /**
  * 현재 hash를 기반으로 breadcrumb 아이템들을 생성합니다.
+ *
+ * 주의: 이 함수는 documentation 페이지에서만 호출되어야 합니다.
+ * 호출 여부는 main.ts에서 결정합니다.
  */
 async function generateBreadcrumbItems(): Promise<BreadcrumbItem[]> {
   const hash = window.location.hash.slice(1); // # 제거
-
-  if (!hash || hash === '/') {
-    return [{ name: '홈', path: '/', linkable: true }];
-  }
-
   const translationData = await loadTranslationData();
   const pathSegments = hash.split('/').filter((segment) => segment !== '');
+
   const breadcrumbItems: BreadcrumbItem[] = [
     { name: '홈', path: '/', linkable: true },
   ];
@@ -147,9 +148,16 @@ function removePreviousBreadcrumb(): void {
 
 /**
  * Breadcrumb을 생성하고 div#content의 첫 번째 자식으로 추가합니다.
+ *
+ * 주의: 이 함수는 documentation 페이지에서만 호출되어야 합니다.
+ * 호출 여부는 main.ts에서 결정합니다.
  */
 export async function initializeBreadcrumb(): Promise<void> {
-  const contentDiv = document.getElementById('content')!;
+  const contentDiv = getElement<HTMLDivElement>('content');
+  if (!contentDiv) {
+    console.warn('Breadcrumb 초기화 실패: content 요소를 찾을 수 없습니다.');
+    return;
+  }
 
   removePreviousBreadcrumb();
 

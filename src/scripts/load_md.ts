@@ -1,4 +1,6 @@
 import { marked } from 'marked';
+import { getCurrentPageConfig } from './page-config';
+import { requireElement } from './utils/dom';
 
 // marked 옵션 설정 (브레이크, GFM 지원 등)
 marked.setOptions({
@@ -46,7 +48,7 @@ export async function renderMarkdownWithComponents(
   contentElement.innerHTML = html;
 }
 
-async function loadMarkdown(page: string) {
+async function loadMarkdown(page: string): Promise<void> {
   try {
     const response = await fetch(`/docs/${page}.md`);
 
@@ -75,11 +77,12 @@ async function loadMarkdown(page: string) {
       );
     }
 
-    const contentElement = document.getElementById('content')!;
+    const contentElement = requireElement<HTMLElement>('content');
     contentElement.innerHTML = '';
     await renderMarkdownWithComponents(mdText, contentElement);
   } catch {
-    document.getElementById('content')!.innerHTML = `
+    const contentElement = requireElement<HTMLElement>('content');
+    contentElement.innerHTML = `
       <div id="not-found" class="w-full">
         <p>열심히 문서를 업데이트하고 있습니다💦. 더 풍부한 한국어 번역 자료를 제공하기 위해 웹사이트 발전에 기여하고 싶다면 <a href="https://github.com/docker-ko/docker-ko.github.io">깃허브 레포지토리 주소</a>를 클릭하세요!</p>
         <button-component href="#/home" title="홈으로 돌아가기" />
@@ -88,7 +91,16 @@ async function loadMarkdown(page: string) {
   }
 }
 
-export async function initializeMarkdownLoader() {
-  const page = location.hash ? location.hash.substring(2) : 'home';
+/**
+ * 마크다운 파일을 로드하고 렌더링합니다.
+ * 페이지 설정에 따라 적절한 마크다운 파일을 결정합니다.
+ */
+export async function initializeMarkdownLoader(): Promise<void> {
+  const config = getCurrentPageConfig();
+
+  // 페이지 타입에 따른 마크다운 파일 결정
+  const page =
+    config.type === 'landing' ? 'home' : location.hash.substring(2) || 'home';
+
   await loadMarkdown(page);
 }
