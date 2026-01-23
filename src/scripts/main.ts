@@ -6,26 +6,49 @@ import './components/card-component';
 import { initializeMarkdownLoader } from './load_md';
 import { initializeTableContents } from './table-contents';
 import { initializeBreadcrumb } from './breadcrumb';
+import { getCurrentPageConfig } from './page-config';
+import { toggleUIElements } from './ui-manager';
+
+/**
+ * 페이지 초기화 오케스트레이터
+ *
+ * 책임:
+ * - 페이지 설정에 따라 적절한 초기화 함수들을 조율
+ * - UI 요소 표시/숨김 제어
+ * - 조건부 컴포넌트 초기화
+ */
+async function initializePage(): Promise<void> {
+  const config = getCurrentPageConfig();
+
+  // 1. 마크다운 로드 (모든 페이지에서 필요)
+  await initializeMarkdownLoader();
+
+  // 2. UI 요소 표시/숨김 제어
+  toggleUIElements(config);
+
+  // 3. 조건부 초기화
+  if (config.showTableOfContents) {
+    initializeTableContents();
+  }
+
+  if (config.showBreadcrumb) {
+    await initializeBreadcrumb();
+  }
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    await initializeMarkdownLoader();
-    initializeTableContents();
-    await initializeBreadcrumb();
+    await initializePage();
   } catch (error) {
-    console.error('❌ main.ts: DOMContentLoaded : Markdown 로드 실패!', error);
-    // 실제 다른 작업이 필요
+    console.error('❌ main.ts: DOMContentLoaded : 페이지 초기화 실패!', error);
   }
 });
 
 window.addEventListener('hashchange', async () => {
   try {
-    await initializeMarkdownLoader();
-    initializeTableContents();
-    await initializeBreadcrumb();
+    await initializePage();
     window.scrollTo(0, 0); // 페이지 이동 시 최상단으로 스크롤 이동
   } catch (error) {
-    console.error('❌ main.ts: hashchange : Markdown 로드 실패!', error);
-    // 실제 다른 작업이 필요
+    console.error('❌ main.ts: hashchange : 페이지 초기화 실패!', error);
   }
 });
