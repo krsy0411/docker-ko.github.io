@@ -30,3 +30,21 @@
     @apply text-base font-semibold text-gray-700;
   }
 }
+
+/* 홈 페이지 도트 맵 배경 애니메이션 */
+@layer utilities {
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.3;
+      transform: scale(1.2);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
