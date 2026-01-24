@@ -1,31 +1,66 @@
-# Docker 한국어 문서에 오신 것을 환영합니다
+<div class="not-prose max-w-6xl mx-auto px-6 py-16">
 
-커뮤니티와 함께 만들어가는 Docker 공식 문서 한국어 번역 프로젝트입니다.
+<!-- Hero Section -->
+<div class="text-center mb-20">
+  <h1 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+    Docker 한국어 문서
+  </h1>
+  <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
+    커뮤니티와 함께 만들어가는 Docker 공식 문서 번역 프로젝트
+  </p>
 
-## 궁금한 점이 있으신가요?
-
-Docker 사용 중 어려움을 겪고 계신가요? 번역에 대한 의견이 있으신가요?
-커뮤니티 디스커션에서 자유롭게 질문하고 소통해보세요.
-
-[질문하러 가기](https://github.com/docker-ko/docker-ko.github.io/discussions)
-
-## 기여자들
-
-이 프로젝트는 커뮤니티의 기여로 이루어집니다. 기여해주신 모든 분들께 감사드립니다!
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
-<contributor-component username="krsy0411" avatar="https://avatars.githubusercontent.com/u/90031820?v=4"></contributor-component>
-<contributor-component username="elecbug" avatar="https://github.com/elecbug.png"></contributor-component>
-<contributor-component username="g1nya2" avatar="https://avatars.githubusercontent.com/u/105257807?v=4"></contributor-component>
-<contributor-component username="YoonKeumJae" avatar="https://avatars.githubusercontent.com/u/79782610?v=4"></contributor-component>
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 max-w-3xl mx-auto">
+    <home-link-card-component
+      href="#/get-started"
+      icon="book"
+      title="문서 시작하기"
+      description="Docker 기본 사항을 배워보세요">
+    </home-link-card-component>
+    <home-link-card-component
+      href="https://github.com/docker-ko/docker-ko.github.io"
+      icon="github"
+      title="GitHub 저장소"
+      description="소스 코드 보기 및 기여하기">
+    </home-link-card-component>
+  </div>
 </div>
 
-**함께 기여해주세요!** 여러분의 참여를 기다립니다.
-[기여 가이드 보기](https://github.com/docker-ko/docker-ko.github.io/blob/master/CONTRIBUTING.md)
+<!-- Community Section -->
+<div class="mb-20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+      궁금한 점이 있으신가요?
+    </h2>
+    <p class="text-lg text-gray-600 dark:text-gray-300">
+      커뮤니티 디스커션에서 자유롭게 질문하고 소통해보세요
+    </p>
+  </div>
 
-## 시작하기
+  <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+    <home-link-card-component
+      href="https://github.com/docker-ko/docker-ko.github.io/discussions"
+      icon="chat"
+      title="질문하러 가기"
+      description="커뮤니티에서 자유롭게 질문하고 소통하세요">
+    </home-link-card-component>
+  </div>
+</div>
 
-Docker의 모든 기능과 활용법을 한국어로 배워보세요.
+<!-- Contributors Section -->
+<div>
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+      기여자들
+    </h2>
+  </div>
 
-- [문서 시작하기](#/get-started)
-- [GitHub 저장소](https://github.com/docker-ko/docker-ko.github.io)
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
+    <contributor-component></contributor-component>
+    <contributor-component username="krsy0411" avatar="https://avatars.githubusercontent.com/u/90031820?v=4"></contributor-component>
+    <contributor-component username="elecbug" avatar="https://github.com/elecbug.png"></contributor-component>
+    <contributor-component username="g1nya2" avatar="https://avatars.githubusercontent.com/u/105257807?v=4"></contributor-component>
+    <contributor-component username="YoonKeumJae" avatar="https://avatars.githubusercontent.com/u/79782610?v=4"></contributor-component>
+  </div>
+</div>
+
+</div>
