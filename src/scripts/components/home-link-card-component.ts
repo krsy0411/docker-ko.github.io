@@ -58,11 +58,23 @@ export default class HomeLinkCardComponent extends HTMLElement {
     return href.startsWith('http://') || href.startsWith('https://');
   }
 
+  /**
+   * HTML 특수 문자를 이스케이프 처리
+   * XSS 공격 방지를 위한 보안 함수
+   */
+  private escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   render() {
     const href = this.getAttribute('href') || '#';
     const icon = this.getAttribute('icon') || 'rocket';
-    const title = this.getAttribute('title') || '제목';
-    const description = this.getAttribute('description') || '설명';
+    const title = this.escapeHtml(this.getAttribute('title') || '제목');
+    const description = this.escapeHtml(
+      this.getAttribute('description') || '설명'
+    );
 
     const isExternal = this.isExternalLink(href);
     const externalAttrs = isExternal
@@ -84,9 +96,9 @@ export default class HomeLinkCardComponent extends HTMLElement {
             </span>
           </div>
           <div class="flex flex-col items-start justify-start">
-            <h3 class="mb-1 text-lg font-bold text-black dark:text-white">
+            <div class="mb-1 text-lg font-bold text-black dark:text-white">
               ${title}
-            </h3>
+            </div>
             <p class="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
               ${description}
             </p>
