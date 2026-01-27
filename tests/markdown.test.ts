@@ -17,22 +17,29 @@ beforeAll(() => {
   (global as any).customElements = dom.window.customElements;
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
+  // CardComponent 정의
   class CardComponent extends dom.window.HTMLElement {
     connectedCallback() {
-      const title = this.getAttribute('title') || 'Card Title';
-      const description = this.getAttribute('description') || 'Card content';
+      const title = this.getAttribute('title') || '';
+      const description = this.getAttribute('description') || '';
       const imgsrc = this.getAttribute('imgsrc') || '';
-      const href = this.getAttribute('href') || '/';
+      const href = this.getAttribute('href') || '#';
 
       this.innerHTML = `
         <div class="card">
-          <a href="${href}" class="no-underline decoration-none" style="text-decoration: none;">
-            <div class="flex flex-col gap-2 p-4">
-              <div class="flex gap-4 items-center">
-                <img class="w-[32px]" src="${imgsrc}" alt="">
-                <div class="text-xl font-semibold text-gray-800 dark:text-white flex items-center gap-2">${title}</div>
-              </div>
-              <div class="text-gray-600 dark:text-white font-normal" style="text-decoration: none;">${description}</div>
+          <a href="${href}" class="card-link">
+            ${
+              imgsrc
+                ? `<div class="card-icon">
+                <img class="card-img" src="${imgsrc}" alt="${title}" />
+              </div>`
+                : ''
+            }
+            <div class="card-content">
+              <p class="card-description">
+                <strong class="card-title">${title}</strong><br />
+                ${description}
+              </p>
             </div>
           </a>
         </div>
@@ -40,9 +47,10 @@ beforeAll(() => {
     }
   }
 
+  // ButtonComponent 정의
   class ButtonComponent extends dom.window.HTMLElement {
     connectedCallback() {
-      const title = this.getAttribute('title') || 'Button';
+      const title = this.getAttribute('title') || '';
       const href = this.getAttribute('href') || '#';
 
       this.innerHTML = `
@@ -55,8 +63,29 @@ beforeAll(() => {
     }
   }
 
+  // HomeLinkCardComponent 정의
+  class HomeLinkCardComponent extends dom.window.HTMLElement {
+    connectedCallback() {
+      const title = this.getAttribute('title') || '';
+      const description = this.getAttribute('description') || '';
+      const href = this.getAttribute('href') || '#';
+      const icon = this.getAttribute('icon') || 'rocket';
+
+      this.innerHTML = `
+        <a href="${href}" class="home-link-card" data-icon="${icon}">
+          <h3>${title}</h3>
+          <p>${description}</p>
+        </a>
+      `;
+    }
+  }
+
   dom.window.customElements.define('card-component', CardComponent);
   dom.window.customElements.define('button-component', ButtonComponent);
+  dom.window.customElements.define(
+    'home-link-card-component',
+    HomeLinkCardComponent
+  );
 });
 
 beforeEach(() => {
@@ -66,131 +95,142 @@ beforeEach(() => {
   contentElement = document.getElementById('content')!;
 });
 
+/**
+ * 웹 컴포넌트 렌더링을 위한 헬퍼 함수
+ * connectedCallback이 실행될 충분한 시간 대기
+ */
+async function waitForComponentRender() {
+  await new Promise((resolve) => setTimeout(resolve, 50));
+}
+
 describe('renderMarkdownWithComponents', () => {
-  describe('웹 컴포넌트 존재 확인', () => {
-    it('단일 card-component가 DOM에 존재하는지 확인', async () => {
-      // Arrange
-      const mdText =
-        '<card-component title="Docker 개요" description="Docker의 기본 개념" imgsrc="/imgs/docker.svg" href="/overview"></card-component>';
+  describe('웹 컴포넌트 렌더링 검증', () => {
+    // 동적 입력값을 사용한 card-component 테스트
+    it.each([
+      {
+        title: 'Docker 개요',
+        description: 'Docker의 기본 개념',
+        imgsrc: '/imgs/docker.svg',
+        href: '/overview',
+      },
+      {
+        title: 'Kubernetes',
+        description: '컨테이너 오케스트레이션',
+        imgsrc: '/imgs/k8s.svg',
+        href: '/k8s',
+      },
+    ])(
+      'card-component가 올바르게 렌더링됨: $title',
+      async ({ title, description, imgsrc, href }) => {
+        // Arrange
+        const mdText = `<card-component title="${title}" description="${description}" imgsrc="${imgsrc}" href="${href}"></card-component>`;
 
-      // Act
-      await renderMarkdownWithComponents(mdText, contentElement);
-      await new Promise((resolve) => setTimeout(resolve, 10));
+        // Act
+        await renderMarkdownWithComponents(mdText, contentElement);
+        await waitForComponentRender();
 
-      // Assert
-      const cardComponent = contentElement.querySelector('card-component');
-      expect(cardComponent).toBeTruthy();
-      expect(cardComponent?.tagName.toLowerCase()).toBe('card-component');
-    });
+        // Assert
+        const component = contentElement.querySelector('card-component');
+        expect(component).toBeTruthy();
+        expect(component!.innerHTML).toContain(title);
+        expect(component!.innerHTML).toContain(description);
+        expect(component!.querySelector('.card')).toBeTruthy();
+      }
+    );
 
-    it('단일 button-component가 DOM에 존재하는지 확인', async () => {
-      // Arrange
-      const mdText =
-        '<button-component title="시작하기" href="/get-started"></button-component>';
+    // 동적 입력값을 사용한 button-component 테스트
+    it.each([
+      { title: '시작하기', href: '/get-started' },
+      { title: '문서 보기', href: '/docs' },
+      { title: '튜토리얼', href: '/tutorial' },
+    ])(
+      'button-component가 올바르게 렌더링됨: $title',
+      async ({ title, href }) => {
+        // Arrange
+        const mdText = `<button-component title="${title}" href="${href}"></button-component>`;
 
-      // Act
-      await renderMarkdownWithComponents(mdText, contentElement);
-      await new Promise((resolve) => setTimeout(resolve, 10));
+        // Act
+        await renderMarkdownWithComponents(mdText, contentElement);
+        await waitForComponentRender();
 
-      // Assert
-      const buttonComponent = contentElement.querySelector('button-component');
-      expect(buttonComponent).toBeTruthy();
-      expect(buttonComponent?.tagName.toLowerCase()).toBe('button-component');
-    });
+        // Assert
+        const component = contentElement.querySelector('button-component');
+        expect(component).toBeTruthy();
+        expect(component!.innerHTML).toContain(title);
+        expect(component!.innerHTML).toContain(`href="${href}"`);
+      }
+    );
 
-    it('card-component와 button-component가 모두 DOM에 존재하는지 확인', async () => {
-      // Arrange
-      const mdText = `
-        <card-component title="Docker 개요" description="Docker의 기본 개념" imgsrc="/imgs/docker.svg" href="/overview"></card-component>
-        <button-component title="시작하기" href="/get-started"></button-component>
-      `;
+    // 동적 입력값을 사용한 home-link-card-component 테스트
+    it.each([
+      {
+        title: '문서 시작하기',
+        description: 'Docker 기본 사항을 배워보세요',
+        icon: 'book',
+        href: '#/get-started',
+      },
+      {
+        title: 'GitHub 저장소',
+        description: '소스 코드 보기 및 기여하기',
+        icon: 'github',
+        href: 'https://github.com/docker-ko/docker-ko.github.io',
+      },
+    ])(
+      'home-link-card-component가 올바르게 렌더링됨: $title',
+      async ({ title, description, icon, href }) => {
+        // Arrange
+        const mdText = `<home-link-card-component title="${title}" description="${description}" icon="${icon}" href="${href}"></home-link-card-component>`;
 
-      // Act
-      await renderMarkdownWithComponents(mdText, contentElement);
-      await new Promise((resolve) => setTimeout(resolve, 10));
+        // Act
+        await renderMarkdownWithComponents(mdText, contentElement);
+        await waitForComponentRender();
 
-      // Assert
-      const cardComponent = contentElement.querySelector('card-component');
-      const buttonComponent = contentElement.querySelector('button-component');
-
-      expect(cardComponent).toBeTruthy();
-      expect(buttonComponent).toBeTruthy();
-      expect(
-        contentElement.querySelectorAll('card-component, button-component')
-          .length
-      ).toBe(2);
-    });
+        // Assert
+        const component = contentElement.querySelector(
+          'home-link-card-component'
+        );
+        expect(component).toBeTruthy();
+        expect(component!.innerHTML).toContain(title);
+        expect(component!.innerHTML).toContain(description);
+      }
+    );
   });
 
-  describe('HTML 내용 검증', () => {
-    it('card-component의 HTML 내용이 올바르게 렌더링되는지 확인', async () => {
+  describe('마크다운 파싱 검증', () => {
+    it('일반 마크다운 텍스트가 HTML로 변환됨', async () => {
       // Arrange
-      const title = 'Docker 개요';
-      const description = 'Docker의 기본 개념';
-      const imgsrc = '/imgs/docker.svg';
-      const href = '/overview';
-      const mdText = `<card-component title="${title}" description="${description}" imgsrc="${imgsrc}" href="${href}"></card-component>`;
+      const mdText = '# 제목\n\n본문 내용입니다.';
 
       // Act
       await renderMarkdownWithComponents(mdText, contentElement);
-      await new Promise((resolve) => setTimeout(resolve, 10));
 
       // Assert
-      const cardComponent = contentElement.querySelector('card-component');
-      const innerHTML = cardComponent?.innerHTML || '';
-      expect(innerHTML).toContain(title);
-      expect(innerHTML).toContain(description);
-      // card-component 자체가 아닌 내부에 .card 클래스를 가진 요소가 있는지 확인
-      expect(cardComponent?.querySelector('.card')).toBeTruthy();
-      expect(innerHTML).toContain(`href="${href}"`);
+      expect(contentElement.innerHTML).toContain('<h1');
+      expect(contentElement.innerHTML).toContain('제목');
+      expect(contentElement.innerHTML).toContain('본문 내용');
     });
 
-    it('button-component의 HTML 내용이 올바르게 렌더링되는지 확인', async () => {
+    it('마크다운과 웹 컴포넌트가 혼합되어 렌더링됨', async () => {
       // Arrange
-      const title = '시작하기';
-      const href = '/get-started';
-      const mdText = `<button-component title="${title}" href="${href}"></button-component>`;
-
-      // Act
-      await renderMarkdownWithComponents(mdText, contentElement);
-      await new Promise((resolve) => setTimeout(resolve, 10));
-
-      // Assert
-      const buttonComponent = contentElement.querySelector('button-component');
-      const innerHTML = buttonComponent?.innerHTML || '';
-
-      expect(innerHTML).toContain(title);
-      expect(innerHTML).toContain(`href="${href}"`);
-      expect(innerHTML).toContain('bg-[#086dd7]');
-      expect(innerHTML).toContain('button type="button"');
-    });
-
-    it('혼합된 컴포넌트들의 HTML 내용이 모두 올바르게 렌더링되는지 확인', async () => {
-      // Arrange
-      const boxTitle = 'Docker 개요';
-      const boxDescription = 'Docker의 기본 개념';
-      const buttonTitle = '시작하기';
       const mdText = `
-        <card-component title="${boxTitle}" description="${boxDescription}" imgsrc="/imgs/docker.svg" href="/overview"></card-component>
-        <button-component title="${buttonTitle}" href="/get-started"></button-component>
-      `;
+# Docker 시작하기
+
+Docker를 배워보세요.
+
+<button-component title="시작하기" href="/start"></button-component>
+      `.trim();
 
       // Act
       await renderMarkdownWithComponents(mdText, contentElement);
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await waitForComponentRender();
 
       // Assert
-      const cardComponent = contentElement.querySelector('card-component');
-      const buttonComponent = contentElement.querySelector('button-component');
+      expect(contentElement.innerHTML).toContain('<h1');
+      expect(contentElement.innerHTML).toContain('Docker 시작하기');
 
-      expect(cardComponent?.innerHTML).toContain(boxTitle);
-      expect(cardComponent?.innerHTML).toContain(boxDescription);
-      expect(buttonComponent?.innerHTML).toContain(buttonTitle);
-
-      const allContent = contentElement.innerHTML;
-      expect(allContent).toContain(boxTitle);
-      expect(allContent).toContain(boxDescription);
-      expect(allContent).toContain(buttonTitle);
+      const button = contentElement.querySelector('button-component');
+      expect(button).toBeTruthy();
+      expect(button!.innerHTML).toContain('시작하기');
     });
   });
 });

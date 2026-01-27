@@ -8,10 +8,20 @@ marked.setOptions({
   breaks: true,
 });
 
-// card-component를 블록 태그 및 셀프 클로징 태그로 처리하는 커스텀 토크나이저 추가
-// 템플릿 리터럴에서 역참조(\1) 사용 불가하므로 정규식 리터럴로 하드코딩
-const blockTagRegex =
-  /^<(card-component)([\s\S]*?)(?:>([\s\S]*?)<\/card-component>|\s*\/)>/i;
+// 모든 웹 컴포넌트를 블록 태그 및 셀프 클로징 태그로 처리하는 커스텀 토크나이저
+// 지원 컴포넌트 목록
+const SUPPORTED_COMPONENTS = [
+  'card-component',
+  'button-component',
+  'home-link-card-component',
+];
+
+// 동적으로 모든 컴포넌트를 지원하는 정규식 생성
+const componentPattern = SUPPORTED_COMPONENTS.join('|');
+const blockTagRegex = new RegExp(
+  `^<(${componentPattern})([\\s\\S]*?)(?:>([\\s\\S]*?)<\\/\\1>|\\s*\\/>)`,
+  'i'
+);
 
 const customBlockTokenizer = {
   name: 'custom-block-tag',
