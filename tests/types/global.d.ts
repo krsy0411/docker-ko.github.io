@@ -6,13 +6,12 @@
 import type { DOMWindow } from 'jsdom';
 
 declare global {
-  // eslint-disable-next-line no-var
   var window: DOMWindow;
-  // eslint-disable-next-line no-var
+
   var document: Document;
-  // eslint-disable-next-line no-var
+
   var HTMLElement: typeof HTMLElement;
-  // eslint-disable-next-line no-var
+
   var customElements: CustomElementRegistry;
 }
 

@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     trackException(
       appInsights,
       error as Error,
-      'DOMContentLoaded.initializePage',
+      'DOMContentLoaded.initializePage'
     );
     console.error('❌ main.ts: DOMContentLoaded : 페이지 초기화 실패!', error);
   }

@@ -24,7 +24,7 @@ export function initializeAppInsights(): ApplicationInsights | null {
 
   if (!connectionString) {
     console.warn(
-      '⚠️ VITE_APPINSIGHTS_CONNECTION_STRING not set. Monitoring disabled.',
+      '⚠️ VITE_APPINSIGHTS_CONNECTION_STRING not set. Monitoring disabled.'
     );
     return null;
   }
@@ -64,9 +64,7 @@ export function initializeAppInsights(): ApplicationInsights | null {
  *
  * @param appInsights - App Insights 인스턴스
  */
-export function setupWebVitalsTracking(
-  appInsights: ApplicationInsights,
-): void {
+export function setupWebVitalsTracking(appInsights: ApplicationInsights): void {
   const sendVital = (metric: Metric) => {
     try {
       appInsights.trackMetric({
@@ -112,7 +110,7 @@ export function trackPageView(appInsights: ApplicationInsights): void {
 export function trackException(
   appInsights: ApplicationInsights | null,
   error: Error,
-  location: string,
+  location: string
 ): void {
   if (!appInsights) return;
 
