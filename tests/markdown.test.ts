@@ -1,125 +1,40 @@
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
-import { JSDOM } from 'jsdom';
+import { describe, it, expect, beforeEach, beforeAll, afterAll } from 'vitest';
 import { renderMarkdownWithComponents } from '../src/scripts/load_md';
+import {
+  setupTestEnvironment,
+  waitForComponentRender,
+  type TestEnvironment,
+} from './helpers/test-environment';
+import { registerMockComponents } from './helpers/component-factory';
+import {
+  CARD_COMPONENT_TEST_CASES,
+  BUTTON_COMPONENT_TEST_CASES,
+  HOME_LINK_CARD_COMPONENT_TEST_CASES,
+} from './fixtures/component-test-data';
 
-let dom: JSDOM;
+let testEnv: TestEnvironment;
 let document: Document;
 let contentElement: HTMLElement;
 
 beforeAll(() => {
-  dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
+  testEnv = setupTestEnvironment();
+  registerMockComponents(testEnv.dom);
+});
 
-  // JSDOM 글로벌 환경 설정
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  (global as any).window = dom.window;
-  (global as any).document = dom.window.document;
-  (global as any).HTMLElement = dom.window.HTMLElement;
-  (global as any).customElements = dom.window.customElements;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
-
-  // CardComponent 정의
-  class CardComponent extends dom.window.HTMLElement {
-    connectedCallback() {
-      const title = this.getAttribute('title') || '';
-      const description = this.getAttribute('description') || '';
-      const imgsrc = this.getAttribute('imgsrc') || '';
-      const href = this.getAttribute('href') || '#';
-
-      this.innerHTML = `
-        <div class="card">
-          <a href="${href}" class="card-link">
-            ${
-              imgsrc
-                ? `<div class="card-icon">
-                <img class="card-img" src="${imgsrc}" alt="${title}" />
-              </div>`
-                : ''
-            }
-            <div class="card-content">
-              <p class="card-description">
-                <strong class="card-title">${title}</strong><br />
-                ${description}
-              </p>
-            </div>
-          </a>
-        </div>
-      `;
-    }
-  }
-
-  // ButtonComponent 정의
-  class ButtonComponent extends dom.window.HTMLElement {
-    connectedCallback() {
-      const title = this.getAttribute('title') || '';
-      const href = this.getAttribute('href') || '#';
-
-      this.innerHTML = `
-        <button type="button" class="not-prose my-4">
-          <a href="${href}" class="cursor-pointer py-2 px-4 rounded bg-[#086dd7] hover:bg-[#2560ff] text-white!">
-            ${title}
-          </a>
-        </button>
-      `;
-    }
-  }
-
-  // HomeLinkCardComponent 정의
-  class HomeLinkCardComponent extends dom.window.HTMLElement {
-    connectedCallback() {
-      const title = this.getAttribute('title') || '';
-      const description = this.getAttribute('description') || '';
-      const href = this.getAttribute('href') || '#';
-      const icon = this.getAttribute('icon') || 'rocket';
-
-      this.innerHTML = `
-        <a href="${href}" class="home-link-card" data-icon="${icon}">
-          <h3>${title}</h3>
-          <p>${description}</p>
-        </a>
-      `;
-    }
-  }
-
-  dom.window.customElements.define('card-component', CardComponent);
-  dom.window.customElements.define('button-component', ButtonComponent);
-  dom.window.customElements.define(
-    'home-link-card-component',
-    HomeLinkCardComponent
-  );
+afterAll(() => {
+  testEnv.cleanup();
 });
 
 beforeEach(() => {
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  document = (global as any).document;
+  document = testEnv.document;
   document.body.innerHTML = '<div id="content"></div>';
   contentElement = document.getElementById('content')!;
 });
 
-/**
- * 웹 컴포넌트 렌더링을 위한 헬퍼 함수
- * connectedCallback이 실행될 충분한 시간 대기
- */
-async function waitForComponentRender() {
-  await new Promise((resolve) => setTimeout(resolve, 50));
-}
-
 describe('renderMarkdownWithComponents', () => {
   describe('웹 컴포넌트 렌더링 검증', () => {
-    // 동적 입력값을 사용한 card-component 테스트
-    it.each([
-      {
-        title: 'Docker 개요',
-        description: 'Docker의 기본 개념',
-        imgsrc: '/imgs/docker.svg',
-        href: '/overview',
-      },
-      {
-        title: 'Kubernetes',
-        description: '컨테이너 오케스트레이션',
-        imgsrc: '/imgs/k8s.svg',
-        href: '/k8s',
-      },
-    ])(
+    // card-component 동적 테스트
+    it.each(CARD_COMPONENT_TEST_CASES)(
       'card-component가 올바르게 렌더링됨: $title',
       async ({ title, description, imgsrc, href }) => {
         // Arrange
@@ -138,12 +53,8 @@ describe('renderMarkdownWithComponents', () => {
       }
     );
 
-    // 동적 입력값을 사용한 button-component 테스트
-    it.each([
-      { title: '시작하기', href: '/get-started' },
-      { title: '문서 보기', href: '/docs' },
-      { title: '튜토리얼', href: '/tutorial' },
-    ])(
+    // button-component 동적 테스트
+    it.each(BUTTON_COMPONENT_TEST_CASES)(
       'button-component가 올바르게 렌더링됨: $title',
       async ({ title, href }) => {
         // Arrange
@@ -161,21 +72,8 @@ describe('renderMarkdownWithComponents', () => {
       }
     );
 
-    // 동적 입력값을 사용한 home-link-card-component 테스트
-    it.each([
-      {
-        title: '문서 시작하기',
-        description: 'Docker 기본 사항을 배워보세요',
-        icon: 'book',
-        href: '#/get-started',
-      },
-      {
-        title: 'GitHub 저장소',
-        description: '소스 코드 보기 및 기여하기',
-        icon: 'github',
-        href: 'https://github.com/docker-ko/docker-ko.github.io',
-      },
-    ])(
+    // home-link-card-component 동적 테스트
+    it.each(HOME_LINK_CARD_COMPONENT_TEST_CASES)(
       'home-link-card-component가 올바르게 렌더링됨: $title',
       async ({ title, description, icon, href }) => {
         // Arrange
@@ -231,6 +129,22 @@ Docker를 배워보세요.
       const button = contentElement.querySelector('button-component');
       expect(button).toBeTruthy();
       expect(button!.innerHTML).toContain('시작하기');
+    });
+  });
+
+  describe('에지 케이스 검증', () => {
+    it('속성 값이 없는 컴포넌트도 렌더링됨', async () => {
+      // Arrange
+      const mdText = '<card-component></card-component>';
+
+      // Act
+      await renderMarkdownWithComponents(mdText, contentElement);
+      await waitForComponentRender();
+
+      // Assert
+      const component = contentElement.querySelector('card-component');
+      expect(component).toBeTruthy();
+      expect(component!.innerHTML).toContain('href="#"'); // 기본값 확인
     });
   });
 });
