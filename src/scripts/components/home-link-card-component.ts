@@ -76,7 +76,7 @@ export default class HomeLinkCardComponent extends HTMLElement {
       <a
         href="${href}"
         ${externalAttrs}
-        class="group block rounded-xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 transition hover:scale-[1.02] hover:border-blue-500 dark:border-gray-700 dark:bg-gray-900/80 dark:hover:border-blue-500"
+        class="group block rounded-xl border border-[#007bff] bg-white/80 backdrop-blur-sm p-6 transition hover:scale-[1.02] hover:border-[#0056b3] dark:border-[#007bff] dark:bg-gray-900/80 dark:hover:border-[#0056b3]"
         aria-label="${ariaLabel}"
       >
         <div class="flex items-start gap-4">
