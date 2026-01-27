@@ -74,7 +74,8 @@
 /* 홈 페이지 도트 맵 배경 애니메이션 */
 @layer utilities {
   @keyframes pulse-slow {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.1;
       transform: scale(1);
     }

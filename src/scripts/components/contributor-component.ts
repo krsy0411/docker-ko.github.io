@@ -130,7 +130,8 @@ export default class ContributorComponent extends HTMLElement {
       `;
     } else {
       const githubUrl = `https://github.com/${username}`;
-      const avatarUrl = avatar || 'https://avatars.githubusercontent.com/u/0?v=4';
+      const avatarUrl =
+        avatar || 'https://avatars.githubusercontent.com/u/0?v=4';
 
       this.innerHTML = `
         <a

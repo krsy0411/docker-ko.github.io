@@ -68,9 +68,7 @@ export default class HomeLinkCardComponent extends HTMLElement {
     const externalAttrs = isExternal
       ? 'target="_blank" rel="noopener noreferrer"'
       : '';
-    const ariaLabel = isExternal
-      ? `${title} (새 창에서 열림)`
-      : title;
+    const ariaLabel = isExternal ? `${title} (새 창에서 열림)` : title;
 
     this.innerHTML = `
       <a

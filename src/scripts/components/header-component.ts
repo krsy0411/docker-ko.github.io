@@ -15,11 +15,21 @@ class HeaderComponent extends HTMLElement {
 
         if (itemPath && currentPath.startsWith(itemPath)) {
           // Active state: rounded pill with solid background
-          link?.classList.add('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+          link?.classList.add(
+            'bg-blue-100',
+            'dark:bg-blue-900/30',
+            'text-blue-600',
+            'dark:text-blue-400'
+          );
           link?.classList.remove('text-gray-600', 'dark:text-gray-400');
         } else {
           // Inactive state
-          link?.classList.remove('bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+          link?.classList.remove(
+            'bg-blue-100',
+            'dark:bg-blue-900/30',
+            'text-blue-600',
+            'dark:text-blue-400'
+          );
           link?.classList.add('text-gray-600', 'dark:text-gray-400');
         }
       });
