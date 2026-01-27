@@ -1,3 +1,5 @@
+import { getElement } from './utils/dom';
+
 const createObserver = (headingMap: Record<string, HTMLLIElement>) => {
   return new IntersectionObserver(
     (entries) => {
@@ -24,14 +26,30 @@ const createObserver = (headingMap: Record<string, HTMLLIElement>) => {
   );
 };
 
-export const initializeTableContents = () => {
-  const content = document.getElementById('content') as HTMLElement;
-  const toc = document.getElementById('toc') as HTMLElement;
+/**
+ * Table of Contents를 생성하고 표시합니다.
+ *
+ * 주의: 이 함수는 documentation 페이지에서만 호출되어야 합니다.
+ * 호출 여부는 main.ts에서 결정합니다.
+ */
+export const initializeTableContents = (): void => {
+  const content = getElement<HTMLElement>('content');
+  const toc = getElement<HTMLElement>('toc');
+
+  // 방어적 프로그래밍: 필수 요소 존재 확인
+  if (!content || !toc) {
+    console.warn('TOC 초기화 실패: content 또는 toc 요소를 찾을 수 없습니다.');
+    return;
+  }
 
   toc.innerHTML = '';
 
   const headings = content.querySelectorAll('h2, h3');
-  if (headings.length === 0) return;
+
+  // Early return: headings가 없으면 TOC를 생성하지 않음
+  if (headings.length === 0) {
+    return;
+  }
 
   const tocTitle = document.createElement('p');
   const tocList = document.createElement('ul');
