@@ -39,12 +39,13 @@ export function toggleUIElements(config: PageConfig): void {
   // Content 영역 레이아웃 조정
   const content = getElement<HTMLElement>('content');
   if (content) {
+    // 항상 클래스를 초기화하고 적절한 클래스 추가
+    content.classList.remove('max-w-5xl', 'mx-auto');
+
     if (config.type === 'landing') {
       // 랜딩 페이지: full-width, 중앙 정렬
       content.classList.add('max-w-5xl', 'mx-auto');
-    } else {
-      // 문서 페이지: 기본 레이아웃
-      content.classList.remove('max-w-5xl', 'mx-auto');
     }
+    // else: 문서 페이지는 클래스 없음 (기본 레이아웃)
   }
 }

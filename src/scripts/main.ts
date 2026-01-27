@@ -3,11 +3,27 @@ import '../styles/content_style.css';
 import '../styles/style.css';
 import './load_md';
 import './components/card-component';
+import './components/contributor-component';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { initializeMarkdownLoader } from './load_md';
 import { initializeTableContents } from './table-contents';
 import { initializeBreadcrumb } from './breadcrumb';
 import { getCurrentPageConfig } from './page-config';
 import { toggleUIElements } from './ui-manager';
+
+// Application Insights 초기화
+const appInsights = new ApplicationInsights({
+  config: {
+    connectionString:
+      'InstrumentationKey=7bea0293-01dc-409c-9471-3a65567b11ed;IngestionEndpoint=https://koreacentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://koreacentral.livediagnostics.monitor.azure.com/;ApplicationId=ddbe985c-4d7a-41e4-80a8-a3961068933b',
+    enableAutoRouteTracking: true,
+    disableFetchTracking: false,
+    disableAjaxTracking: false,
+    disableExceptionTracking: false,
+  },
+});
+appInsights.loadAppInsights();
+appInsights.trackPageView();
 
 /**
  * 페이지 초기화 오케스트레이터
