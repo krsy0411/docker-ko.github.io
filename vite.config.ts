@@ -7,7 +7,7 @@ export default defineConfig({
 	base: './',
 	publicDir: 'public',
 	server: {
-        open: true,  // 개발 서버 실행 시 자동으로 열기
+        open: false,  // 컨테이너 환경에서는 브라우저 자동 열기 비활성화
         host: true,  // 네트워크에서 접근 가능하도록 설정
     },
     build: {
