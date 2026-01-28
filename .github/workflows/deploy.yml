@@ -3,7 +3,7 @@ name: Deploy Vite to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - main  # main 브랜치로 변경
 
 permissions:
   contents: write
@@ -26,6 +26,8 @@ jobs:
         run: npm ci
 
       - name: Vite 프로젝트 빌드
+        env:
+          VITE_APPINSIGHTS_CONNECTION_STRING: ${{ secrets.VITE_APPINSIGHTS_CONNECTION_STRING }}
         run: npm run build
 
       - name: GitHub Pages에 배포

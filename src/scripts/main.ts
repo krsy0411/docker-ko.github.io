@@ -4,26 +4,24 @@ import '../styles/style.css';
 import './load_md';
 import './components/card-component';
 import './components/contributor-component';
-import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { initializeMarkdownLoader } from './load_md';
 import { initializeTableContents } from './table-contents';
 import { initializeBreadcrumb } from './breadcrumb';
 import { getCurrentPageConfig } from './page-config';
 import { toggleUIElements } from './ui-manager';
+import {
+  initializeAppInsights,
+  setupWebVitalsTracking,
+  trackPageView,
+  trackException,
+} from './monitoring/app-insights';
 
-// Application Insights 초기화
-const appInsights = new ApplicationInsights({
-  config: {
-    connectionString:
-      'InstrumentationKey=7bea0293-01dc-409c-9471-3a65567b11ed;IngestionEndpoint=https://koreacentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://koreacentral.livediagnostics.monitor.azure.com/;ApplicationId=ddbe985c-4d7a-41e4-80a8-a3961068933b',
-    enableAutoRouteTracking: true,
-    disableFetchTracking: false,
-    disableAjaxTracking: false,
-    disableExceptionTracking: false,
-  },
-});
-appInsights.loadAppInsights();
-appInsights.trackPageView();
+// 모니터링 초기화
+const appInsights = initializeAppInsights();
+if (appInsights) {
+  trackPageView(appInsights);
+  setupWebVitalsTracking(appInsights);
+}
 
 /**
  * 페이지 초기화 오케스트레이터
@@ -56,6 +54,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await initializePage();
   } catch (error) {
+    trackException(
+      appInsights,
+      error as Error,
+      'DOMContentLoaded.initializePage'
+    );
     console.error('❌ main.ts: DOMContentLoaded : 페이지 초기화 실패!', error);
   }
 });
@@ -65,6 +68,7 @@ window.addEventListener('hashchange', async () => {
     await initializePage();
     window.scrollTo(0, 0); // 페이지 이동 시 최상단으로 스크롤 이동
   } catch (error) {
+    trackException(appInsights, error as Error, 'hashchange.initializePage');
     console.error('❌ main.ts: hashchange : 페이지 초기화 실패!', error);
   }
 });
