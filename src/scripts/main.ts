@@ -10,17 +10,17 @@ import { initializeBreadcrumb } from './breadcrumb';
 import { getCurrentPageConfig } from './page-config';
 import { toggleUIElements } from './ui-manager';
 import {
-  initializeAppInsights,
+  initializeMonitoring,
   setupWebVitalsTracking,
   trackPageView,
   trackException,
-} from './monitoring/app-insights';
+} from './monitoring/monitoring';
 
 // 모니터링 초기화
-const appInsights = initializeAppInsights();
-if (appInsights) {
-  trackPageView(appInsights);
-  setupWebVitalsTracking(appInsights);
+const monitoringEnabled = initializeMonitoring();
+if (monitoringEnabled) {
+  trackPageView();
+  setupWebVitalsTracking();
 }
 
 /**
@@ -54,11 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await initializePage();
   } catch (error) {
-    trackException(
-      appInsights,
-      error as Error,
-      'DOMContentLoaded.initializePage'
-    );
+    trackException(error as Error, 'DOMContentLoaded.initializePage');
     console.error('❌ main.ts: DOMContentLoaded : 페이지 초기화 실패!', error);
   }
 });
@@ -68,7 +64,7 @@ window.addEventListener('hashchange', async () => {
     await initializePage();
     window.scrollTo(0, 0); // 페이지 이동 시 최상단으로 스크롤 이동
   } catch (error) {
-    trackException(appInsights, error as Error, 'hashchange.initializePage');
+    trackException(error as Error, 'hashchange.initializePage');
     console.error('❌ main.ts: hashchange : 페이지 초기화 실패!', error);
   }
 });
