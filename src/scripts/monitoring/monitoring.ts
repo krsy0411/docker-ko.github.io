@@ -166,7 +166,9 @@ export function trackException(error: Error, location: string): void {
 if (import.meta.env.DEV) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).testSentry = () => {
-    Sentry.logger.info('User triggered test log', { log_source: 'sentry_test' });
+    Sentry.logger.info('User triggered test log', {
+      log_source: 'sentry_test',
+    });
     console.log('✅ Test sent. Check Sentry dashboard.');
   };
 
