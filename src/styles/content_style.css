@@ -1,6 +1,7 @@
 /*
  * Markdown 콘텐츠 전용 스타일
- * 직접 자식만 타겟팅하여 Web Components 제외
+ * 기본적으로 .markdown-content의 직접 자식만 타겟팅하여 Web Components 경계를 침범하지 않으며,
+ * 코드/링크 등 인라인 요소에 한해서는 예외적으로 자손 셀렉터도 사용합니다.
  *
  * BEM 구조:
  * Block: .markdown-content (마크다운 콘텐츠 컨테이너)
@@ -209,7 +210,7 @@
    ======================================== */
 
 /* Element (논리적): 인라인 코드 (<code>) - pre 안에 없는 경우만 */
-.markdown-content code {
+.markdown-content :not(pre) > code {
   font-size: 0.875rem;
   font-family: var(--md-code-font-family);
   background-color: var(--md-code-inline-bg);
@@ -338,7 +339,6 @@
   height: 0;
   overflow: hidden;
   max-width: 100%;
-  max-height: auto;
 }
 
 .markdown-content .youtube-video iframe {
