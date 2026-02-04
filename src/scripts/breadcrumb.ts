@@ -117,17 +117,31 @@ function escapeHtml(text: string): string {
 }
 
 /**
+ * href 속성값을 안전하게 escape
+ * 따옴표, 꺾쇠괄호 등을 HTML 엔티티로 변환
+ */
+function escapeHtmlAttribute(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/**
  * Breadcrumb 아이템을 HTML 문자열로 변환
  */
 function renderBreadcrumbItem(item: BreadcrumbItem, isLast: boolean): string {
   const escapedName = escapeHtml(item.name);
+  const escapedPath = escapeHtmlAttribute(item.path);
 
   if (isLast) {
     return `<span class="truncate text-gray-400 dark:text-gray-300">${escapedName}</span>`;
   }
 
   if (item.linkable) {
-    return `<a href="${item.path}" class="truncate text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">${escapedName}</a> / `;
+    return `<a href="${escapedPath}" class="truncate text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">${escapedName}</a> / `;
   }
 
   // linkable=false인 항목은 회색으로 표시 (클릭 불가 시각 표시)
