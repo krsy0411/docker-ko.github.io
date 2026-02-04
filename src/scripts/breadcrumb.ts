@@ -108,28 +108,59 @@ async function generateBreadcrumbItems(): Promise<BreadcrumbItem[]> {
 }
 
 /**
+ * XSS 방지를 위한 HTML escape
+ */
+function escapeHtml(text: string): string {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+/**
+ * href 속성값을 안전하게 escape
+ * 따옴표, 꺾쇠괄호 등을 HTML 엔티티로 변환
+ */
+function escapeHtmlAttribute(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/**
+ * Breadcrumb 아이템을 HTML 문자열로 변환
+ */
+function renderBreadcrumbItem(item: BreadcrumbItem, isLast: boolean): string {
+  const escapedName = escapeHtml(item.name);
+  const escapedPath = escapeHtmlAttribute(item.path);
+
+  if (isLast) {
+    return `<span class="truncate text-gray-400 dark:text-gray-300">${escapedName}</span>`;
+  }
+
+  if (item.linkable) {
+    return `<a href="${escapedPath}" class="truncate text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">${escapedName}</a> / `;
+  }
+
+  // linkable=false인 항목은 회색으로 표시 (클릭 불가 시각 표시)
+  return `<span class="truncate text-gray-500 dark:text-gray-400">${escapedName}</span> / `;
+}
+
+/**
  * Breadcrumb HTML 요소를 생성합니다.
  */
 function createBreadcrumbElement(items: BreadcrumbItem[]): HTMLElement {
   const breadcrumbNav = document.createElement('nav');
   breadcrumbNav.id = 'breadcrumbs';
-  breadcrumbNav.className =
-    'pb-3 flex min-w-0 items-center gap-2 text-gray-400 dark:text-gray-300';
+  // nav 요소에서 색상 클래스 제거 (자식 요소에서 색상 관리)
+  breadcrumbNav.className = 'pb-3 flex min-w-0 items-center gap-2';
 
   const breadcrumbHTML = items
-    .map((item, index) => {
-      const isLast = index === items.length - 1;
-
-      if (isLast) {
-        return `<span class="truncate">${item.name}</span>`;
-      }
-
-      if (!item.linkable) {
-        return `<span class="truncate text-blue-500">${item.name}</span> / `;
-      } else {
-        return `<a href="${item.path}" class="link truncate">${item.name}</a> / `;
-      }
-    })
+    .map((item, index) =>
+      renderBreadcrumbItem(item, index === items.length - 1)
+    )
     .join('');
 
   breadcrumbNav.innerHTML = breadcrumbHTML;
