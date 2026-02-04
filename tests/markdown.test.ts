@@ -27,7 +27,7 @@ afterAll(() => {
 
 beforeEach(() => {
   document = testEnv.document;
-  document.body.innerHTML = '<div id="content"></div>';
+  document.body.innerHTML = '<div id="content" class="markdown-content"></div>';
   contentElement = document.getElementById('content')!;
 });
 

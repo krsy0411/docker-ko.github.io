@@ -25,7 +25,7 @@ beforeAll(async () => {
   testMarkdownContent = await marked.parse(rawMarkdown);
 
   dom = new JSDOM(
-    '<!DOCTYPE html><html><body><div id="content"></div><div id="toc"></div></body></html>'
+    '<!DOCTYPE html><html><body><div id="content" class="markdown-content"></div><div id="toc"></div></body></html>'
   );
 
   // JSDOM 글로벌 환경 설정
@@ -47,7 +47,7 @@ beforeAll(async () => {
 beforeEach(() => {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   document = (global as any).document;
-  document.body.innerHTML = '<div id="content"></div><div id="toc"></div>';
+  document.body.innerHTML = '<div id="content" class="markdown-content"></div><div id="toc"></div>';
   contentElement = document.getElementById('content')!;
   tocElement = document.getElementById('toc')!;
 
