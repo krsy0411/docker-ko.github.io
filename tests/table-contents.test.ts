@@ -47,7 +47,8 @@ beforeAll(async () => {
 beforeEach(() => {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   document = (global as any).document;
-  document.body.innerHTML = '<div id="content" class="markdown-content"></div><div id="toc"></div>';
+  document.body.innerHTML =
+    '<div id="content" class="markdown-content"></div><div id="toc"></div>';
   contentElement = document.getElementById('content')!;
   tocElement = document.getElementById('toc')!;
 

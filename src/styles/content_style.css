@@ -16,13 +16,13 @@
      네임스페이스: md-spacing (markdown-spacing)
      원칙: Vertical rhythm 유지, Proximity principle 적용
      ======================================== */
-  --md-spacing-xs: 0.5rem;   /* 8px  - 리스트 아이템 간격 */
-  --md-spacing-sm: 0.75rem;  /* 12px - h4 하단, blockquote 내부 문단 */
-  --md-spacing-md: 1rem;     /* 16px - 기본 문단 간격, h2/h3 하단 */
-  --md-spacing-lg: 1.5rem;   /* 24px - h1 상하, 코드/인용 상하 */
-  --md-spacing-xl: 2rem;     /* 32px - h4 상단 */
-  --md-spacing-2xl: 2.5rem;  /* 40px - h3 상단 */
-  --md-spacing-3xl: 3rem;    /* 48px - h2 상단 (섹션 구분 강화) */
+  --md-spacing-xs: 0.5rem; /* 8px  - 리스트 아이템 간격 */
+  --md-spacing-sm: 0.75rem; /* 12px - h4 하단, blockquote 내부 문단 */
+  --md-spacing-md: 1rem; /* 16px - 기본 문단 간격, h2/h3 하단 */
+  --md-spacing-lg: 1.5rem; /* 24px - h1 상하, 코드/인용 상하 */
+  --md-spacing-xl: 2rem; /* 32px - h4 상단 */
+  --md-spacing-2xl: 2.5rem; /* 40px - h3 상단 */
+  --md-spacing-3xl: 3rem; /* 48px - h2 상단 (섹션 구분 강화) */
 
   /* ========================================
      코드 블록 색상
@@ -50,8 +50,9 @@
   --md-code-inline-border: var(--md-code-inline-border-light);
 
   /* 공통 폰트 스택 */
-  --md-code-font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono',
-                         Consolas, 'Courier New', monospace;
+  --md-code-font-family:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+    monospace;
 
   /* ========================================
      링크 색상
@@ -106,28 +107,28 @@
 .markdown-content > h1 {
   font-size: 2rem;
   font-weight: bold;
-  margin-top: var(--md-spacing-lg);   /* 24px - 페이지 시작 여백 */
+  margin-top: var(--md-spacing-lg); /* 24px - 페이지 시작 여백 */
   margin-bottom: var(--md-spacing-lg); /* 24px - 하위 콘텐츠와 적절한 거리 */
 }
 
 /* h2 - 섹션 구분 (가장 중요한 구조) */
 .markdown-content > h2 {
   font-size: 1.75rem;
-  margin-top: var(--md-spacing-3xl);  /* 48px - 섹션 구분 강화 */
+  margin-top: var(--md-spacing-3xl); /* 48px - 섹션 구분 강화 */
   margin-bottom: var(--md-spacing-md); /* 16px - 하위 콘텐츠와 가까이 */
 }
 
 /* h3 - 하위 섹션 */
 .markdown-content > h3 {
   font-size: 1.5rem;
-  margin-top: var(--md-spacing-2xl);  /* 40px - 중간 계층 구분 */
+  margin-top: var(--md-spacing-2xl); /* 40px - 중간 계층 구분 */
   margin-bottom: var(--md-spacing-md); /* 16px - 하위 콘텐츠와 가까이 */
 }
 
 /* h4 - 세부 항목 */
 .markdown-content > h4 {
   font-size: 1.2rem;
-  margin-top: var(--md-spacing-xl);   /* 32px - 최소 구분 여백 */
+  margin-top: var(--md-spacing-xl); /* 32px - 최소 구분 여백 */
   margin-bottom: var(--md-spacing-sm); /* 12px - 하위 콘텐츠와 매우 가까이 */
 }
 
@@ -195,7 +196,7 @@
 .markdown-content ol ul {
   margin-left: 1.5rem;
   padding-left: 1rem;
-  margin-top: var(--md-spacing-xs);    /* 8px - 상위 아이템과 간격 */
+  margin-top: var(--md-spacing-xs); /* 8px - 상위 아이템과 간격 */
   margin-bottom: var(--md-spacing-xs); /* 8px - 다음 아이템과 간격 */
 }
 
@@ -227,7 +228,7 @@
   border-radius: 8px;
   overflow-x: auto;
   line-height: 1.5;
-  margin-top: var(--md-spacing-lg);    /* 24px - 1rem(16px)에서 증가 */
+  margin-top: var(--md-spacing-lg); /* 24px - 1rem(16px)에서 증가 */
   margin-bottom: var(--md-spacing-lg); /* 24px - 1rem(16px)에서 증가 */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
@@ -310,8 +311,8 @@
 .markdown-content > blockquote {
   border-left: 4px solid #007bff;
   padding: var(--md-spacing-md) 1.25rem; /* 상하 16px, 좌우 20px */
-  margin-top: var(--md-spacing-lg);      /* 24px */
-  margin-bottom: var(--md-spacing-lg);   /* 24px */
+  margin-top: var(--md-spacing-lg); /* 24px */
+  margin-bottom: var(--md-spacing-lg); /* 24px */
   background-color: #f8f9fa;
   font-style: italic;
   color: #555;

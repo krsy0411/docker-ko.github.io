@@ -144,7 +144,9 @@ function createBreadcrumbElement(items: BreadcrumbItem[]): HTMLElement {
   breadcrumbNav.className = 'pb-3 flex min-w-0 items-center gap-2';
 
   const breadcrumbHTML = items
-    .map((item, index) => renderBreadcrumbItem(item, index === items.length - 1))
+    .map((item, index) =>
+      renderBreadcrumbItem(item, index === items.length - 1)
+    )
     .join('');
 
   breadcrumbNav.innerHTML = breadcrumbHTML;
